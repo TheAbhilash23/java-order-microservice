@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,11 +32,12 @@ public class OrderEntity {
     @Schema(description = "Date when the user was created")
     private LocalDateTime date;
 
-    @Schema(description = "User for which subscription order is generated. (ObjectId)", example = "3q34sdfsd456t5ydf634tgh59")
+    @Schema(description = "User for which subscription order is generated. (Long)", example = "3q34sdfsd456t5ydf634tgh59")
     private Long userId;
 
 
-//    @Schema(description = "List of all order items linked to this order.")
-//    private List<OrderItemEntity> orderItems = new ArrayList<>();
+    @Schema(description = "List of all order items linked to this order.")
+    @OneToMany(mappedBy = "orderEntity", cascade = CascadeType.ALL)
+    private List<OrderItemEntity> orderItems = new ArrayList<>();
 }
 

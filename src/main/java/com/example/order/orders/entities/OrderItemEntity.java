@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,6 +30,11 @@ public class OrderItemEntity {
 
     @Schema(description = "Price of the order item.")
     private Double price;
+
+    @Schema(description = "Order that it relates to.")
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private OrderEntity orderEntity;
 
 }
 

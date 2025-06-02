@@ -19,7 +19,7 @@ public abstract class BaseController<T> {
         @ApiResponse(responseCode = "200", description = "Successfully retrieved item"),
         @ApiResponse(responseCode = "404", description = "Item not found")
     })
-    public abstract ResponseEntity<?> retrieve(String id);
+    public abstract ResponseEntity<?> retrieve(Long id);
 
     @Operation(summary = "Create new item", description = "Creates a new item")
     @ApiResponses(value = {
@@ -34,7 +34,7 @@ public abstract class BaseController<T> {
         @ApiResponse(responseCode = "404", description = "Item not found"),
         @ApiResponse(responseCode = "400", description = "Invalid input")
     })
-    public abstract ResponseEntity<?> partialUpdate(String id, T updateItem);
+    public abstract ResponseEntity<?> partialUpdate(Long id, T updateItem);
 
     @Operation(summary = "Delete item", description = "Deletes an existing item")
     @ApiResponses(value = {
@@ -42,5 +42,5 @@ public abstract class BaseController<T> {
             @ApiResponse(responseCode = "404", description = "Item not found"),
             @ApiResponse(responseCode = "400", description = "Invalid input")
     })
-    public abstract ResponseEntity<?> delete(String id);
+    public abstract ResponseEntity<?> delete(Long id);
 } 

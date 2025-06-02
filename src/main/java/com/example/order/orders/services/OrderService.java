@@ -13,16 +13,13 @@ import java.util.Optional;
 @Component
 public class OrderService {
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
 
     @Autowired
     private OrderRepository orderRepository;
 
-    public boolean isUserExisting(ObjectId userId) {
-        Query query = new Query(Criteria.where("_id").is(userId));
-        return this.mongoTemplate.exists(query, "users");
-    }
+    public boolean isUserExisting(Long userId){
+        return orderRepository.existsByUserId(userId);
+    };
 
     @Autowired
     public OrderService(OrderRepository orderRepository) {
@@ -31,8 +28,6 @@ public class OrderService {
 
     public void createOrder(OrderEntity order) throws ValidationException {
         OrderEntity newOrder = new OrderEntity();
-        System.out.println(orderRepository.existsByUserId(order.getUserId()));
-        System.out.println(orderRepository.existsByUserId(order.getUserId()));
         System.out.println(orderRepository.existsByUserId(order.getUserId()));
         System.out.println(isUserExisting(order.getUserId()));
         newOrder.setUserId(order.getUserId());
@@ -46,11 +41,11 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public OrderEntity getOrderById(String id) {
+    public OrderEntity getOrderById(Long id) {
         return orderRepository.findById(id).orElse(null);
     }
 
-    public OrderEntity updateOrderById(String id, OrderEntity orderData) {
+    public OrderEntity updateOrderById(Long id, OrderEntity orderData) {
         OrderEntity old = orderRepository.findById(id).orElse(null);
         if (old != null) {
             // username and date can't change
@@ -63,7 +58,7 @@ public class OrderService {
         return null;
     }
 
-    public boolean deleteOrderById(String id) {
+    public boolean deleteOrderById(Long id) {
         Optional<OrderEntity> order = orderRepository.findById(id);
         if (order.isPresent()) {
             orderRepository.deleteById(id);

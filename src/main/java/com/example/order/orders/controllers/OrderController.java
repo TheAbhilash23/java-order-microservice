@@ -31,7 +31,7 @@ public class OrderController extends BaseController<OrderEntity> {
 
     @Override
     @GetMapping("/{id}")
-    public ResponseEntity<OrderEntity> retrieve(@PathVariable String id){
+    public ResponseEntity<OrderEntity> retrieve(@PathVariable Long id){
         OrderEntity order = orderService.getOrderById(id);
         if (order == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -62,7 +62,7 @@ public class OrderController extends BaseController<OrderEntity> {
 
     @Override
     @PatchMapping("/{id}/")
-    public ResponseEntity<OrderEntity> partialUpdate(@PathVariable String id, @RequestBody OrderEntity updateOrder){
+    public ResponseEntity<OrderEntity> partialUpdate(@PathVariable Long id, @RequestBody OrderEntity updateOrder){
         OrderEntity order = orderService.getOrderById(id);
         if (order == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -73,7 +73,7 @@ public class OrderController extends BaseController<OrderEntity> {
 
     @Override
     @DeleteMapping("/{id}/")
-    public ResponseEntity<?> delete(@PathVariable String id){
+    public ResponseEntity<?> delete(@PathVariable Long id){
         boolean isDeleted = orderService.deleteOrderById(id);
         if (isDeleted){
             return new ResponseEntity<>(HttpStatus.OK);
